@@ -1,0 +1,20 @@
+
+# Arquivos compilados
+*.class
+
+# Saída da compilação (IntelliJ)
+out/
+
+# Configurações do IntelliJ
+.idea/
+*.iml
+
+# Arquivos de log
+*.log
+
+# Arquivos empacotados
+*.jar
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
