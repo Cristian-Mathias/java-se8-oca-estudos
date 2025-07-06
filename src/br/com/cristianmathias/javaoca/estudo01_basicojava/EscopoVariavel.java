@@ -2,9 +2,10 @@ package br.com.cristianmathias.javaoca.estudo01_basicojava;
 /**
  * Escopo de Variáveis =>
  *
- * @author Cristian Mathias
- * @see ?
+ * @implNote Veja a explicação teórica no arquivo java-se8-concepts.md
+ *
  * @since 2025-07-04
+ * @author Cristian Mathias
  */
 
 public class EscopoVariavel {
