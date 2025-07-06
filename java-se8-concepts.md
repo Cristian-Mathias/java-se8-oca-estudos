@@ -7,11 +7,17 @@ Em Java, as variáveis podem ter diferentes tipos de escopo dependendo de onde e
 ---
 
 ##  Variável de Instância
+Oque é?
 
-- Declarada **dentro da classe**, mas **fora de métodos, construtores ou blocos**.
+- É uma variável que pertence a cada objeto criado a partir da classe.
 - Cada **objeto da classe** tem sua **própria cópia** dessa variável.
-- Só pode ser acessada diretamente **dentro da própria classe** (ou via objeto em outra classe).
+
+Onde é declarada?
+- Declarada **dentro da classe**, mas **fora de métodos, construtores ou blocos**.
 - Visível em todos os **métodos não estáticos** da classe.
+
+Como acessar?
+- Só pode ser acessada diretamente **dentro da própria classe** (ou via objeto em outra classe).
 - Pode ser acessada:
     - Diretamente pelo nome:
       ```java
@@ -21,16 +27,64 @@ Em Java, as variáveis podem ter diferentes tipos de escopo dependendo de onde e
       ```java
       System.out.println(this.numeroClasse);
       ```
+- Se um método estático precisar acessar uma variável de instância (não estática), 
+ele deverá receber um objeto como argumento.
+    
+  ```java
+    public class Turma501 {
+        String nomeAluno = "Pedro"; // variável de instância
+
+        public static void metodo(Turma501 turma501){
+            System.out.println("{variável de instância dentro de método  static} = " + turma501.nomeAluno );
+        }
+
+        public static void main(String[] args) {
+            Turma501 escopo = new Turma501();
+            metodo(escopo);
+        }
+    }
+    ```
+- OBS: se a variável for static ela se tornará variável de classe!
+    ```java
+        static String nomeAluno = "Pedro"; // variável de classe
+    ```
 
 ---
 
 ##  Variável de Classe (Estática)
 
 - Declarada dentro da classe com a palavra-chave `static`.
+    ```java
+        public class Turma501 {
+            static String nomeAluno = "Pedro";// variável de classe
+
+            public void metodo(){
+                System.out.println("{variável de classe dentro de método não static} = " + nomeAluno );
+            }
+
+            public static void main(String[] args) {
+                Turma501 escopo = new Turma501();
+                escopo.metodo();
+            }
+        }
+    ```
 - **Pertence à classe** e não a objetos individuais.
 - Há **uma única cópia compartilhada** entre todas as instâncias da classe.
 - Pode ser acessada:
     - Diretamente por **métodos estáticos** da própria classe.
+        ```java
+        public class Turma501 {
+            static String nomeAluno = "Pedro";// variável de classe
+
+            public static void metodo(){
+                System.out.println("{variável de classe dentro de método  static} = " + nomeAluno );
+            }
+
+            public static void main(String[] args) {
+                metodo();
+            }
+        }
+        ```
     - Pelo nome da classe:
       ```java
       Classe.nomeVariavel;
