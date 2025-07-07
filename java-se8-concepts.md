@@ -1,4 +1,7 @@
-#  Escopo de Variáveis
+# JAVA SE 8 (OCA)
+# Noções básicas de Java
+
+##  Escopo de Variáveis
 
 > O escopo de uma variável define **onde ela pode ser usada (acessada)** dentro do código.
 
@@ -6,7 +9,7 @@ Em Java, as variáveis podem ter diferentes tipos de escopo dependendo de onde e
 
 ---
 
-##  Variável de Instância
+###  Variável de Instância
 Oque é?
 
 - É uma variável que pertence a cada objeto criado a partir da classe.
@@ -51,7 +54,7 @@ ele deverá receber um objeto como argumento.
 
 ---
 
-##  Variável de Classe (Estática)
+###  Variável de Classe (Estática)
 
 - Declarada dentro da classe com a palavra-chave `static`.
     ```java
@@ -96,7 +99,7 @@ ele deverá receber um objeto como argumento.
 - Pode ser usada em métodos estáticos e não estáticos.
 ---
 
-##  Variável Local
+###  Variável Local
 
 - Declarada dentro de um **método, construtor ou bloco**.
 - Existe **apenas durante a execução** desse bloco.
@@ -111,7 +114,7 @@ public void exemplo() {
 }
 ```
 ---
-##  Variável de Bloco
+###  Variável de Bloco
 
 - É um tipo especial de variável local, declarada dentro de um bloco de código como if, for, while, {}.
 - É visível somente dentro daquele bloco específico (entre as chaves {}).
@@ -125,3 +128,92 @@ public void exemplo() {
             System.out.println("Dentro do if: " + numero);
         }
 ```
+---
+## Estrutura básica de uma classe
+
+> Uma classe é a base da programação orientada a objetos em Java. Ela serve como molde para criar objetos, definindo os atributos (dados) e comportamentos (métodos) que esses objetos terão.
+- Componentes principais da estrutura de uma classe Java:
+    ```java
+    [modificador_de_acesso] class NomeDaClasse {
+    
+        // 1. Atributos (Campos ou Variáveis de Instância)
+        [modificador_de_acesso] tipo nomeAtributo;
+    
+        // 2. Construtores
+        [modificador_de_acesso] NomeDaClasse([parâmetros]) {
+            // código para inicializar o objeto
+        }
+    
+        // 3. Métodos (comportamentos)
+        [modificador_de_acesso] tipoRetorno nomeMetodo([parâmetros]) {
+            // corpo do método
+        }
+    
+        // 4. Blocos estáticos ou de inicialização (opcional)
+        static {
+            // inicialização estática da classe
+        }
+    }
+
+    ```
+1. Modificador de acesso da classe
+- Pode ser public (classe visível para todo mundo) ou default (visível só dentro do pacote).
+- Exemplo:
+    ````java
+        public class Pessoa { ... }
+
+    ````
+2. Nome da classe
+- Deve ser um identificador válido, por convenção começa com letra maiúscula.
+- Deve ser igual ao nome do arquivo .java.
+
+3. Atributos (Campos)
+- São as variáveis que armazenam o estado do objeto.
+- Exemplo:
+    ````java
+        private String nome;
+        private int idade;
+    ````
+4. Construtores
+- Método especial usado para criar e inicializar objetos.
+- Tem o mesmo nome da classe e não tem tipo de retorno.
+- Pode haver múltiplos construtores (sobrecarga).
+- Exemplo:
+    ````java
+        public Pessoa(String nome, int idade) {
+            this.nome = nome;
+            this.idade = idade;
+        }
+    ````
+5. Métodos
+- Definem o comportamento da classe.
+- Possuem modificadores de acesso, tipo de retorno, nome e parâmetros.
+- Exemplo:
+    ````java
+        public void fazerAniversario() {
+            idade++;
+        }
+
+        public String getNome() {
+            return nome;
+       }
+    ````
+6. Blocos estáticos (opcional)
+- Executados uma vez quando a classe é carregada.
+- Usados para inicialização estática.
+- Exemplo:
+    ````java
+        static {
+        System.out.println("Classe carregada");
+        }
+    ````
+> **Resumo rápido**:<br><br>
+A classe é o molde do objeto.<br>
+Tem atributos (dados) e métodos (ações).<br>
+Pode ter construtores para inicializar.<br>
+Modificadores de acesso controlam a visibilidade.<br>
+Cada classe Java é um arquivo .java com o mesmo nome da classe.
+
+
+
+
