@@ -214,6 +214,56 @@ Pode ter construtores para inicializar.<br>
 Modificadores de acesso controlam a visibilidade.<br>
 Cada classe Java é um arquivo .java com o mesmo nome da classe.
 
+---
+## Criar Aplicativos Java Executáveis com Método ``main``; Executar pela Linha de Comando; Produzir Saída no Console
+
+### Conceito
+Para que um programa Java seja executável, ele precisa conter um método especial chamado **main**, que serve como ponto de entrada da aplicação. É a partir desse método que a Java Virtual Machine (JVM) inicia a execução do programa.
+
+A estrutura do método main deve ser exatamente esta:
+````java
+public static void main(String[] args)
+````
+
+### Detalhes da assinatura:
+
+- ``public`` — Acesso global, necessário para que a JVM possa chamar o método.
+- ``static`` — Permite que a JVM execute o método sem criar uma instância da classe.
+- ``void`` — Indica que o método não retorna nada.
+- ``String[] args`` — Argumentos de linha de comando passados ao programa (opcional).
+
+    String[] args serve para passar informações do terminal (linha de comando) para o programa Java no momento em que ele é iniciado.
+
+    Ou seja, é a comunicação entre o terminal e a aplicação no instante da execução.
+
+**Obs:** Você já se perguntou por que o método main recebe seus argumentos como um array de Strings (String[] args), mesmo que os dados que você passe possam ser números, booleanos ou outros tipos?
+> Isso acontece porque, na execução via terminal, tudo que você digita é recebido inicialmente como texto puro. A JVM, então, entrega esses dados ao programa como Strings, deixando para o próprio programa a tarefa de interpretar e converter para os tipos apropriados conforme a necessidade.
+
+### Execução via linha de comando
+
+1. Compilar:
+````bash
+javac NomeDaClasse.java
+````
+Gera um arquivo .class com bytecode Java.
+
+2. Executar:
+````bash
+java NomeDaClasse
+````
+> Importante: Não incluir a extensão .class na execução.
+
+### Produzir saída no console
+Java usa o comando System.out.println() para escrever no terminal (console). É muito útil para exibir resultados, mensagens ou fazer testes:
+
+````bash
+System.out.println("Texto com quebra de linha");
+System.out.print("Texto na mesma linha");
+System.out.printf("Formatado: %.2f", 3.1415);
+````
+
+
+
 
 
 
