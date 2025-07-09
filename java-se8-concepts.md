@@ -1,5 +1,5 @@
 # JAVA SE 8 (OCA)
-# Noções básicas de Java
+# 1. Noções básicas de Java
 
 ##  Escopo de Variáveis
 
@@ -261,6 +261,47 @@ System.out.println("Texto com quebra de linha");
 System.out.print("Texto na mesma linha");
 System.out.printf("Formatado: %.2f", 3.1415);
 ````
+---
+## Importe outros pacotes Java para torná-los acessíveis em seu código
+
+Pacotes (packages) são usados para organizar classes, interfaces e subpacotes em grupos lógicos.
+Eles funcionam como pastas que ajudam a manter o código estruturado e reutilizável.
+
+- Evitam conflitos entre nomes de classes.
+- Facilitam o gerenciamento do projeto.
+- Melhoram a modularidade e legibilidade do código.
+
+**Sintaxe para declarar um pacote**
+> package br.com.cristianmathias.projeto;
+
+- Isso diz à JVM que a classe faz parte do pacote br.com.cristianmathias.projeto.
+
+**Como funciona a estrutura de ``import``**
+Se uma classe quer usar outra classe que está em outro pacote, ela precisa importar essa classe.
+
+- Sintaxe básica:
+  ````java
+    import nome.do.pacote.NomeDaClasse;
+  ````
+**Exemplos:**
+
+1. Importar uma classe específica
+````java
+  import java.util.Scanner;
+````
+2. Importar todas as classes do pacote
+````java
+  import java.util.*;
+````
+3. Importar membros estáticos (atributos ou métodos)
+````java
+    import static java.lang.Math.PI;
+    import static java.lang.Math.sqrt;
+````
+
+
+
+
 
 
 
