@@ -298,13 +298,79 @@ Se uma classe quer usar outra classe que está em outro pacote, ela precisa impo
     import static java.lang.Math.PI;
     import static java.lang.Math.sqrt;
 ````
+---
+## Compare e contraste os recursos e componentes do Java, como: independência de plataforma, orientação a objetos, encapsulamento, etc.
+
+### Independência de plataforma
+- Significa que o mesmo código Java pode rodar em diferentes sistemas operacionais sem modificações.
+- Isso é possível porque o código Java é compilado em bytecode, e esse bytecode é executado por qualquer Java Virtual Machine (JVM).
+
+### Orientação a Objetos (OO)
+- Java é uma linguagem fortemente orientada a objetos.
+- Quase tudo em Java é um objeto, exceto tipos primitivos.
+- Os principais pilares da OO são:
+  - Encapsulamento
+  - Herança
+  - Polimorfismo
+  - Abstração
+
+1. **Encapsulamento**
+
+Encapsulamento é o princípio de ocultar os detalhes internos de uma classe e proteger o acesso direto aos dados. Em vez de acessar os atributos diretamente, o código externo interage com a classe através de métodos públicos chamados get e set.
+- Técnica de esconder detalhes internos de uma classe e expor somente o necessário.
+- Utiliza modificadores de acesso (como private, public, protected).
+- Promove segurança, reutilização e organização do código.
+
+📌 Exemplo: uso de getters e setters para acessar atributos private.
+
+2. **Herança**
+
+Herança é um princípio da orientação a objetos que permite a uma classe herdar atributos e métodos de outra.
+- A classe que herda é chamada de subclasse (ou classe filha).
+- A classe que é herdada é chamada de superclasse (ou classe pai).
+- Usa-se a palavra-chave extends.
 
 
+- Permite criar novas classes a partir de classes existentes.
+- A nova classe herda atributos e métodos da classe base.
+- Java só permite herança simples (uma classe só pode estender uma outra classe).
+
+3. **Polimorfismo**
+
+Polimorfismo vem do grego e significa “muitas formas”. Em Java, é a capacidade de um objeto se comportar de diferentes formas, dependendo do contexto.
+- Um mesmo método pode se comportar de formas diferentes, dependendo do contexto (ex: sobrescrita).
+- Permite que um objeto seja tratado como uma instância de sua superclasse.
+
+4. **Abstração**
+
+Abstração é o princípio de ocultar os detalhes de implementação e expor apenas o essencial. Em Java, isso é feito com:
+- Classes abstratas (abstract)
+- Métodos abstratos (sem corpo, que devem ser implementados por subclasses)
 
 
+- Permite definir o que uma classe faz, sem expor como ela faz.
+- Utiliza classes abstract e interfaces.
+- Muito útil para separar regras gerais de implementações específicas.
 
+### Gerenciamento automático de memória
+- Java possui coletor de lixo (Garbage Collector), que remove automaticamente objetos não utilizados da memória.
+- Isso facilita o desenvolvimento e evita vazamentos de memória comuns em C/C++.
 
+### Segurança
+- O modelo de segurança da JVM impede que códigos maliciosos acessem áreas protegidas da máquina.
+- Também permite executar código em ambientes restritos (sandbox).
 
+### Multithreading
+- Java oferece suporte nativo a programação concorrente com threads.
+- Permite que múltiplas tarefas sejam executadas em paralelo, aproveitando melhor os recursos do sistema.
 
+### Bibliotecas ricas (API)
+- Java oferece amplas bibliotecas padrão, como:
+  - **java.util** (coleções, datas, etc.)
+  - **java.io** (entrada e saída)
+  - **java.time** (API moderna de datas)
+  - **java.net** (comunicação em rede)
 
+---
 
+# 2. Trabalhando com tipos de dados Java
