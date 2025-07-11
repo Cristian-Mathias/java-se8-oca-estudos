@@ -305,6 +305,15 @@ Se uma classe quer usar outra classe que está em outro pacote, ela precisa impo
 - Significa que o mesmo código Java pode rodar em diferentes sistemas operacionais sem modificações.
 - Isso é possível porque o código Java é compilado em bytecode, e esse bytecode é executado por qualquer Java Virtual Machine (JVM).
 
+| Conceito                        | Explicação                                                       |
+| ------------------------------- | ---------------------------------------------------------------- |
+| **JVM**                         | Executa o bytecode em qualquer sistema com Java instalado        |
+| **Bytecode (`.class`)**         | Código intermediário gerado pelo compilador Java (`javac`)       |
+| **Independência de plataforma** | Você escreve e compila uma vez, e roda em qualquer lugar com JVM |
+| **Javac ≠ C compiler**          | Não gera binário nativo, mas sim bytecode portátil               |
+| **Vantagem prática**            | Não precisa recompilar o código para cada sistema operacional    |
+
+
 ### Orientação a Objetos (OO)
 - Java é uma linguagem fortemente orientada a objetos.
 - Quase tudo em Java é um objeto, exceto tipos primitivos.
@@ -318,10 +327,27 @@ Se uma classe quer usar outra classe que está em outro pacote, ela precisa impo
 
 Encapsulamento é o princípio de ocultar os detalhes internos de uma classe e proteger o acesso direto aos dados. Em vez de acessar os atributos diretamente, o código externo interage com a classe através de métodos públicos chamados get e set.
 - Técnica de esconder detalhes internos de uma classe e expor somente o necessário.
-- Utiliza modificadores de acesso (como private, public, protected).
+- Utiliza modificadores de acesso (como private).
 - Promove segurança, reutilização e organização do código.
 
 📌 Exemplo: uso de getters e setters para acessar atributos private.
+
+Resumo:
+
+| **Aspecto**                    | **Descrição**                                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| **Definição**                  | Técnica de proteger os dados internos de uma classe, controlando o acesso por métodos públicos.                    |
+| **Objetivo principal**         | Esconder os detalhes da implementação e proteger os atributos contra acessos indevidos.                            |
+| **Modificador usado**          | `private` para atributos; `public` para métodos `get` e `set`.                                                     |
+| **Métodos comuns**             | **Getters:** retornam o valor do atributo.<br>**Setters:** definem/modificam o valor do atributo, podendo validar. |
+| **Benefícios**                 | Proteção dos dados, controle de acesso, validação, melhor organização e manutenção do código.                      |
+| **Como aplicar**               | Tornar atributos `private` e fornecer métodos `public` para acesso controlado.                                     |
+| **Exemplo de getter**          | `public Tipo getNome() { return nome; }`                                                                           |
+| **Exemplo de setter**          | `public void setNome(Tipo nome) { this.nome = nome; }` (com validação opcional)                                    |
+| **Erro comum**                 | Declarar atributos como `public`, permitindo acesso direto e quebrando o encapsulamento.                           |
+| **Relação com outros pilares** | Complementa a **abstração** ao esconder detalhes, facilita a manutenção e evoluções.                               |
+
+
 
 2. **Herança**
 
@@ -341,6 +367,21 @@ Polimorfismo vem do grego e significa “muitas formas”. Em Java, é a capacid
 - Um mesmo método pode se comportar de formas diferentes, dependendo do contexto (ex: sobrescrita).
 - Permite que um objeto seja tratado como uma instância de sua superclasse.
 
+Resumo:
+
+| Conceito                                         | Descrição                                                                            | Exemplo                                                      |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Definição**                                    | Capacidade de um objeto assumir várias formas, comportando-se de maneiras diferentes | `Animal a = new Cachorro(); a.emitirSom();` chama `Cachorro` |
+| **Polimorfismo em tempo de execução (dinâmico)** | O método chamado é decidido em tempo de execução, dependendo do tipo real do objeto  | Sobrescrita de métodos com `@Override`                       |
+| **Sobrescrita (Overriding)**                     | Subclasse redefine método da superclasse para mudar comportamento                    | `Cachorro` sobrescreve `emitirSom()` de `Animal`             |
+| **Sobrecarga (Overloading)**                     | Mesma classe tem vários métodos com o mesmo nome, mas assinaturas diferentes         | `somar(int a, int b)` e `somar(double a, double b)`          |
+| **Referência do tipo pai**                       | Variável de tipo superclasse ou interface que aponta para objeto de subclasse        | `Animal meuAnimal = new Gato();`                             |
+| **Interfaces e polimorfismo**                    | Polimorfismo também funciona com interfaces implementadas por classes diferentes     | `Animal a = new Gato(); a.emitirSom();`                      |
+| **Vantagens**                                    | Reutilização de código, flexibilidade e extensibilidade                              | Facilita adicionar novas classes sem mudar código existente  |
+| **Palavra-chave importante**                     | `@Override` para sobrescrever métodos corretamente                                   | Ajuda o compilador a detectar erros                          |
+| **Ligação dinâmica**                             | Escolha do método a ser executado é feita em tempo de execução                       | Essencial para o polimorfismo funcionar                      |
+
+
 4. **Abstração**
 
 Abstração é o princípio de ocultar os detalhes de implementação e expor apenas o essencial. Em Java, isso é feito com:
@@ -351,6 +392,21 @@ Abstração é o princípio de ocultar os detalhes de implementação e expor ap
 - Permite definir o que uma classe faz, sem expor como ela faz.
 - Utiliza classes abstract e interfaces.
 - Muito útil para separar regras gerais de implementações específicas.
+
+Resumo:
+
+| Conceito                    | Descrição                                                                                      | Exemplos/Notas                                                                     |
+| --------------------------- | ---------------------------------------------------------------------------------------------- |------------------------------------------------------------------------------------|
+| **Definição**               | Esconder detalhes internos e mostrar apenas o necessário para o uso do objeto                  | Ocultar complexidade, simplificar uso                                              |
+| **Objetivo**                | Reduzir complexidade e aumentar a clareza do código                                            | Facilita manutenção e extensão                                                     |
+| **Ferramentas Java**        | Classes abstratas e interfaces                                                                 |                                                                                    |
+| **Classe abstrata**         | Classe que não pode ser instanciada diretamente, pode conter métodos abstratos e concretos     | Define o que deve ser feito, enquanto as subclasses definem como isso será feito   |
+| **Método abstrato**         | Método sem corpo que deve ser implementado pelas subclasses                                    | `abstract void emitirSom();`                                                       |
+| **Interface**               | Define um contrato (assinaturas de métodos) que as classes devem implementar                   | A partir do Java 8, pode conter métodos default e static                           |
+| **Modificadores de acesso** | `private` para esconder detalhes; `public` para expor funcionalidades essenciais               | Parte do encapsulamento e abstração                                                |
+| **Subclasse concreta**      | Classe que implementa todos os métodos abstratos da superclasse abstrata                       | Pode ser instanciada                                                               |
+| **Vantagens**               | Facilita o design modular, promove reutilização e permite implementar múltiplos comportamentos | Facilita manutenção e escalabilidade                                               |
+
 
 ### Gerenciamento automático de memória
 - Java possui coletor de lixo (Garbage Collector), que remove automaticamente objetos não utilizados da memória.
