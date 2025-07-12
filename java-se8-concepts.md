@@ -261,6 +261,47 @@ System.out.println("Texto com quebra de linha");
 System.out.print("Texto na mesma linha");
 System.out.printf("Formatado: %.2f", 3.1415);
 ````
+
+### Processo de Compilação e Execução em Java
+
+**Conceitos**
+
+**Compilação**
+
+É o processo em que o código-fonte escrito em Java (.java) é traduzido para bytecode (.class) pelo compilador (javac). Esse bytecode é uma linguagem intermediária que pode ser interpretada pela JVM em qualquer sistema operacional.
+Se o compilador encontrar erros de sintaxe ou estrutura, ele para o processo e exibe erros de compilação.
+
+**Execução**
+
+É o processo em que a JVM (Java Virtual Machine) lê e executa o bytecode .class, interpretando as instruções para rodar o programa no computador.
+Se ocorrer algum problema lógico durante a execução (como divisão por zero, acesso a índice inválido, etc.), ocorre um erro de execução, que geralmente lança uma Exception.
+
+**Tabela comparativa: Erro de compilação x Erro de execução**
+
+| Aspecto                | Erro de Compilação                        | Erro de Execução                             |
+| ---------------------- | ----------------------------------------- | -------------------------------------------- |
+| Quando ocorre?         | Na etapa de compilação (`javac`)          | Durante a execução do programa (JVM)         |
+| O que acontece?        | O código não é convertido em bytecode     | Bytecode gerado, mas erro acontece ao rodar  |
+| Sintomas               | Mensagens de erro do compilador           | Mensagens de exceção no console (Exception)  |
+| Exemplo comum          | Erro de sintaxe, falta de ponto e vírgula | Divisão por zero, NullPointerException       |
+| Impacto                | Impede o programa de rodar                | Programa inicia, mas pode parar abruptamente |
+| Onde é detectado?      | IDE ou compilador `javac`                 | Console/terminal durante a execução          |
+| Pode ser corrigido com | Ajuste na sintaxe, tipos, declarações     | Tratamento de exceções, revisão da lógica    |
+
+**Passo a passo do processo compilação e execução**
+
+| Passo | Descrição                                                                                         |
+| ----- | ------------------------------------------------------------------------------------------------- |
+| 1     | Você escreve o código-fonte em Java (.java).                                                      |
+| 2     | Você solicita a compilação (no terminal ou IDE).                                                  |
+| 3     | O compilador `javac` verifica o código.                                                           |
+| 4     | Se não houver erros, gera o arquivo bytecode `.class`.                                            |
+| 5     | Se houver erros, o processo para e mostra mensagens de erro de compilação.                        |
+| 6     | Você solicita a execução do programa.                                                             |
+| 7     | A JVM lê o bytecode `.class` e executa as instruções.                                             |
+| 8     | Durante a execução, se ocorrer problema lógico (ex: divisão por zero), a JVM lança uma Exception. |
+| 9     | Se não houver erros, o programa roda normalmente e exibe o resultado esperado.                    |
+
 ---
 ## Importe outros pacotes Java para torná-los acessíveis em seu código
 
