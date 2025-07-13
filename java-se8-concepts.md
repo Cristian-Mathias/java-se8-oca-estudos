@@ -471,3 +471,49 @@ Resumo:
 ---
 
 # 2. Trabalhando com tipos de dados Java
+
+## Declarar e Inicializar Variáveis (Incluindo Conversão de Tipos Primitivos)
+
+Este tópico aborda como declarar variáveis primitivas em Java, como inicializá-las corretamente e como funciona a conversão entre tipos (casting).
+
+### Tipos Primitivos em Java
+
+Java possui 8 tipos primitivos:
+
+| Tipo      | Descrição                                    | Exemplo                 |
+| --------- | -------------------------------------------- | ----------------------- |
+| `byte`    | Números inteiros pequenos (8 bits)           | `byte b = 100;`         |
+| `short`   | Números inteiros curtos (16 bits)            | `short s = 20000;`      |
+| `int`     | Números inteiros padrão (32 bits)            | `int i = 100000;`       |
+| `long`    | Números inteiros longos (64 bits)            | `long l = 1000000L;`    |
+| `float`   | Números decimais (32 bits)                   | `float f = 2.5f;`       |
+| `double`  | Números decimais com mais precisão (64 bits) | `double d = 3.14;`      |
+| `char`    | Um único caractere Unicode (16 bits)         | `char c = 'A';`         |
+| `boolean` | Verdadeiro ou falso                          | `boolean ativo = true;` |
+
+
+### Declaração e Inicialização
+
+**Declaração:** informar o tipo e o nome da variável.
+````java
+int idade;
+````
+**Inicialização:** atribuir um valor à variável.
+````java
+idade = 25;
+````
+Também pode ser feito em uma única linha:
+````java
+int idade = 25;//forma literal de atribuição
+````
+**Declaração + Inicialização:**
+````java
+String nome = "Cristian";
+````
+**Atribuição com base em outra variável:**
+````java
+idadeFutura = idade + 5;
+````
+
+---
+
