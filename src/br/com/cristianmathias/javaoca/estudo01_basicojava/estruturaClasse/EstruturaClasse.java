@@ -1,4 +1,4 @@
-package br.com.cristianmathias.javaoca.estudo01_basicojava;
+package br.com.cristianmathias.javaoca.estudo01_basicojava.estruturaClasse;
 /**
  * Estrutura de Classe =>
  *
