@@ -1,4 +1,4 @@
-package br.com.cristianmathias.javaoca.estudo02_tiposDeDados.declararInicializarVariavel;
+package br.com.cristianmathias.javaoca.estudo02_tiposDeDados.declararInicializarVariavel.declararInicializarVariaveis;
 /**
  * Declarar e Inicializar Variáveis Java =>
  *
