@@ -516,4 +516,70 @@ idadeFutura = idade + 5;
 ````
 
 ---
+## Diferenciar entre variáveis de referência de objeto e variáveis primitivas
+
+Esse é um dos pilares para entender como o Java funciona em tempo de execução
+
+### Variáveis Primitivas
+
+Em Java, variáveis primitivas são aquelas que armazenam diretamente valores simples e básicos, como números, caracteres e valores lógicos.
+
+Elas não armazenam referências a objetos, e sim o dado real na memória, geralmente na stack (pilha).
+
+- Armazenam diretamente o valor.
+- São tipos básicos: int, double, boolean, char, etc.
+- Armazenadas na stack (pilha), com acesso rápido.
+  - O que é Stack (Pilha) em Java?
+    - A stack, ou pilha, é uma estrutura de memória usada para armazenar informações de forma temporária durante a execução de um programa. Ela segue o princípio:
+    > LIFO → Last In, First Out (o último a entrar é o primeiro a sair)
+
+````java
+int idade = 25;
+boolean ativo = true;
+char letra = 'J';
+````
+### Variáveis de Referência
+
+Em Java, uma variável de referência não armazena o objeto em si, mas um endereço (ou ponteiro) que aponta para um objeto armazenado no heap (área de memória dinâmica).
+
+Quando uma variável de referência é atribuída a outra, o que é copiado é a referência, e não o objeto.
+Ou seja, ambas passam a apontar para o mesmo objeto.
+
+- Armazenam referência (endereço) para um objeto na memória.
+- Referem-se a instâncias de classes (como String, Scanner, Pessoa, etc).
+- A variável fica na stack, mas o objeto é alocado na heap (amontoado).
+  - O que é o Heap em Java?
+    - O heap é uma região da memória da JVM usada para armazenar objetos e suas propriedades durante a execução do programa.
+      > - Stack = métodos + variáveis locais
+      > - Heap = objetos + atributos
+
+**Características do Heap:**
+
+| Característica         | Descrição                                                       |
+| ---------------------- | --------------------------------------------------------------- |
+| Armazena objetos       | Tudo o que você cria com `new` vai pro heap.                    |
+| Gerenciado pela JVM    | Usa o **Garbage Collector** para limpar objetos não utilizados. |
+| Acesso via referências | Objetos no heap são acessados por **variáveis de referência**.  |
+| Vida longa             | Os objetos permanecem enquanto houver uma referência a eles.    |
+| Mais lento que a stack | A alocação é mais custosa, mas flexível.                        |
+
+
+````java
+String nome = "João";          // String é uma classe
+Pessoa pessoa = new Pessoa();  // Pessoa é um objeto criado com new
+````
+**Importante:** A variável não contém o objeto, ela contém a referência para ele.
+
+### Comparação lado a lado
+
+| Característica           | Primitiva              | Referência de Objeto               |
+| ------------------------ | ---------------------- | ---------------------------------- |
+| Armazena                 | Valor direto           | Endereço para um objeto            |
+| Tipo                     | `int`, `boolean`, etc. | `String`, `Scanner`, classes       |
+| Onde vive (memória)      | Stack                  | Stack (referência) + Heap (objeto) |
+| Criado com `new`?        | ❌                      | ✅ (geralmente)                     |
+| Valor padrão (em campos) | 0, false, '\u0000'     | `null`                             |
+
+---
+
 
