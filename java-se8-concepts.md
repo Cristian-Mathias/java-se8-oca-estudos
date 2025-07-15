@@ -581,5 +581,133 @@ Pessoa pessoa = new Pessoa();  // Pessoa é um objeto criado com new
 | Valor padrão (em campos) | 0, false, '\u0000'     | `null`                             |
 
 ---
+## Saiba como ler ou escrever em campos de objetos
+
+Este tema faz parte dos fundamentos da orientação a objetos, e o objetivo é garantir que você saiba:
+
+- Declarar campos (variáveis de instância) em uma classe.
+- Criar objetos.
+- Acessar (ler) e modificar (escrever) esses campos por meio de referências de objeto.
+- Compreender a diferença entre campos de instância e variáveis locais.
+- Evitar erros comuns como NullPointerException.
+
+1. **Campos de objeto (variáveis de instância)**
+
+- São declarados dentro da classe, mas fora dos métodos.
+- Pertencem a cada instância (objeto) da classe.
+- São armazenados na heap.
+- Recebem valores padrão se não forem inicializados.
+
+````java
+class Pessoa {
+    String nome;   // campo
+    int idade;     // campo
+}
+````
+2. **Criando um objeto**
+
+- Você usa new para criar o objeto na memória (heap) e armazenar a referência na stack.
+
+**Explicação detalhada da linha:**
+````java
+Pessoa p = new Pessoa(); // 'p' é uma referência para o objeto
+````
+Essa linha é muito importante no Java, pois combina declaração de referência, alocação de memória e construção do objeto.
+
+| Parte do código     | O que representa                                                                 |
+| ------------------- | -------------------------------------------------------------------------------- |
+| `Pessoa`            | É o **tipo do objeto** (classe).                                                 |
+| `p`                 | É uma **variável de referência** — **fica na stack**.                            |
+| `new`               | Palavra-chave que **cria um novo objeto na heap**.                               |
+| `Pessoa()`          | É a **chamada do construtor da classe Pessoa** (pode ser implícito ou definido). |
+| `new Pessoa()`      | Cria um **objeto real** em memória (na **heap**) e retorna o **endereço dele**.  |
+| `p = new Pessoa();` | A variável `p` recebe a **referência (endereço)** do objeto criado na heap.      |
+
+**Modelo de memória (simplificado)**
+
+Vamos imaginar isso em termos de **stack** e **heap**:
+
+**Heap (memória para objetos):**
+
+- Contém o objeto real criado pela classe Pessoa, com seus campos/atributos:
+````
+Objeto Pessoa (ex: endereço 0x1234)
+ ├── nome  = null
+ └── idade = 0
+````
+
+**Stack (memória para variáveis locais):**
+
+- Contém a variável de referência p, que aponta para o objeto na heap:
+````
+main():
+ └── p ──► endereço 0x1234 (referência para o objeto Pessoa)
+````
+**Visual simplificado:**
+
+````
+Stack:                             Heap:
++---------+                      +----------------+
+|   p     | ----------+--------►| Pessoa objeto   |
+|         |           |         | nome  = null    |
+|         |           |         | idade = 0       |
++---------+           |         +----------------+
+                      |
+            (referência para o objeto)
+
+````
+**O que acontece em tempo de execução**
+
+1. ``new Pessoa()``:
+   - Cria um novo objeto Pessoa na heap.
+   - Seus campos (nome, idade) recebem valores padrão: null e 0.
+2. ``p =``:
+   - A variável p (na stack) armazena o endereço do objeto recém-criado.
+3. Agora, sempre que você fizer p.nome ou p.idade, estará acessando os dados dentro do objeto na heap, usando a ponte (referência) p.
+
+**Observações importantes:**
+- A variável p não é o objeto, é apenas uma referência (endereço).
+- O objeto real vive na heap.
+- Se você fizer p = null;, a variável deixa de apontar para o objeto, mas o objeto pode continuar existindo na heap (até o Garbage Collector removê-lo).
+
+**Resumo mental:**
+
+>Pessoa p = new Pessoa(); cria um objeto na heap, e p guarda a referência na stack.
+---
+
+3. **Lendo campos (acessando)**
+
+- Usa a sintaxe: referencia.nomeDoCampo
+
+````java
+System.out.println(p.nome); // imprime o valor atual de nome (ex: null)
+````
+4. **Escrevendo campos (modificando)**
+
+- Usa a mesma sintaxe para atribuir valores:
+````java
+p.nome = "João";
+p.idade = 30;
+````
+⚠️ **Atenção com null**
+
+- Se a referência do objeto for null, tentar acessar um campo causará NullPointerException.
+
+````java
+Pessoa p = null;
+System.out.println(p.nome); // ERRO em tempo de execução
+````
+📌 **Resumo rápido (mental map):**
+
+| Conceito                    | Exemplo                            | Onde está na memória     |
+| --------------------------- | ---------------------------------- | ------------------------ |
+| Campo de instância          | `String nome;`                     | Heap (objeto)            |
+| Acesso ao campo             | `p.nome`                           | Via referência           |
+| Escrita                     | `p.nome = "João";`                 | Modifica o objeto        |
+| Leitura                     | `System.out.println(p.nome);`      | Lê o valor atual         |
+| Valor padrão (campo)        | `null` (para String)               | Se não inicializado      |
+| Variável local (não campo!) | `String nome;` dentro de um método | Stack (sem valor padrão) |
+
+
 
 
