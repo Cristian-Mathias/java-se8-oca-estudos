@@ -708,6 +708,83 @@ System.out.println(p.nome); // ERRO em tempo de execução
 | Valor padrão (campo)        | `null` (para String)               | Se não inicializado      |
 | Variável local (não campo!) | `String nome;` dentro de um método | Stack (sem valor padrão) |
 
+---
+## Explicar o ciclo de vida de um objeto (criação, “desreferência por reatribuição” e coleta de lixo)
+
+Em Java, o ciclo de vida de um objeto envolve 3 fases principais:
+
+1. Criação do objeto
+2. Desreferência (por reatribuição ou escopo)
+3. Coleta de lixo (Garbage Collection)
+
+### 1. Criação do objeto
+
+Quando você cria um objeto com o operador new, a JVM aloca memória no heap para armazená-lo:
+
+````java
+Pessoa p = new Pessoa(); // Objeto criado no heap
+````
+- p é uma variável de referência.
+- new Pessoa() cria um objeto na memória.
+- A variável p aponta para o objeto.
+
+## 2. Desreferência (perda da referência)
+
+Um objeto se torna inacessível (desreferenciado) quando não há mais variáveis que o referenciem. Isso pode acontecer de duas formas principais:
+
+a) Por reatribuição:
+
+````java
+Pessoa p = new Pessoa(); // objeto1
+p = new Pessoa();        // objeto1 agora está desreferenciado
+````
+- A primeira instância de Pessoa não é mais acessível após a segunda atribuição.
+- O objeto antigo continua existindo, mas sem nenhuma referência.
+
+b) Por fim de escopo:
+
+````java
+void metodo() {
+    Pessoa p = new Pessoa(); // acessível dentro do método
+} // Ao sair do método, 'p' é destruída e o objeto pode ser coletado
+````
+## 3. Coleta de lixo (Garbage Collection)
+
+Java gerencia a memória automaticamente com o Garbage Collector (GC).
+Quando um objeto não tem mais referência, ele fica elegível para ser coletado.
+
+Características:
+
+- Não há garantia de quando o objeto será coletado.
+- Você não precisa liberar a memória manualmente.
+- É possível sugerir a coleta com System.gc(), mas não é garantido que ocorra.
+
+````java
+public class CicloObjeto {
+    public static void main(String[] args) {
+        Pessoa p1 = new Pessoa("Maria");
+        Pessoa p2 = new Pessoa("João");
+
+        p1 = null;     // Maria está elegível para GC
+        p2 = new Pessoa("Ana"); // João está elegível para GC
+    }
+}
+````
+Neste exemplo:
+
+- Maria → perdeu a referência ao fazer p1 = null
+- João → perdeu a referência quando p2 foi sobrescrita com Ana
+
+**Observações**
+- A coleta de lixo não é determinística.
+    - Não há garantia exata de quando o coletor de lixo vai rodar.
+    - O GC é acionado pela JVM conforme a necessidade, como por exemplo quando a memória está baixa.
+    - Você não pode controlar diretamente o momento da coleta, mesmo chamando System.gc() — isso é apenas uma sugestão para a JVM.
+    - Objetos elegíveis para coleta podem permanecer na memória por um tempo indefinido antes de serem efetivamente removidos.
+    - Isso significa que o programa não deve depender do GC para executar alguma ação crítica.
+- Objetos sem referência não são coletados imediatamente.
+- A JVM usa algoritmos de GC para decidir o momento certo da coleta.
+
 
 
 
