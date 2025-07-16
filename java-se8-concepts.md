@@ -728,7 +728,7 @@ Pessoa p = new Pessoa(); // Objeto criado no heap
 - new Pessoa() cria um objeto na memória.
 - A variável p aponta para o objeto.
 
-## 2. Desreferência (perda da referência)
+### 2. Desreferência (perda da referência)
 
 Um objeto se torna inacessível (desreferenciado) quando não há mais variáveis que o referenciem. Isso pode acontecer de duas formas principais:
 
@@ -748,7 +748,7 @@ void metodo() {
     Pessoa p = new Pessoa(); // acessível dentro do método
 } // Ao sair do método, 'p' é destruída e o objeto pode ser coletado
 ````
-## 3. Coleta de lixo (Garbage Collection)
+### 3. Coleta de lixo (Garbage Collection)
 
 Java gerencia a memória automaticamente com o Garbage Collector (GC).
 Quando um objeto não tem mais referência, ele fica elegível para ser coletado.
@@ -784,7 +784,3 @@ Neste exemplo:
     - Isso significa que o programa não deve depender do GC para executar alguma ação crítica.
 - Objetos sem referência não são coletados imediatamente.
 - A JVM usa algoritmos de GC para decidir o momento certo da coleta.
-
-
-
-
