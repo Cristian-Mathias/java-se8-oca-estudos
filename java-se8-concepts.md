@@ -784,3 +784,303 @@ Neste exemplo:
     - Isso significa que o programa não deve depender do GC para executar alguma ação crítica.
 - Objetos sem referência não são coletados imediatamente.
 - A JVM usa algoritmos de GC para decidir o momento certo da coleta.
+---
+
+## Desenvolver código que utilize classes wrapper como Boolean, Double e Integer
+
+As classes wrapper (ou "embrulhadoras") são classes da API Java que representam os tipos primitivos como objetos.
+
+| Primitivo               | Wrapper     |
+| ----------------------- | ----------- |
+| `int`                   | `Integer`   |
+| `double`                | `Double`    |
+| `boolean`               | `Boolean`   |
+| `char`                  | `Character` |
+| (e assim por diante...) |             |
+
+**Por que usar wrappers?**
+
+- Coleções genéricas (como ArrayList) não aceitam tipos primitivos, apenas objetos.
+- Wrappers permitem conversão entre strings e números.
+- Eles possuem métodos úteis, como parseInt(), valueOf(), compareTo(), etc.
+
+### Integer
+
+***Integer*** é uma classe final do Java que encapsula um valor do tipo primitivo int em um objeto. Ela permite que valores inteiros sejam tratados como objetos, oferecendo métodos úteis para manipulação, comparação, conversão e análise de valores inteiros.
+
+**Principais características da classe Integer:**
+
+- Está no pacote java.lang, portanto, pode ser usada sem necessidade de importação.
+- É imutável (seu valor não pode ser alterado depois de criado).
+- Permite conversão entre String e int, e vice-versa.
+- Permite comparação entre objetos Integer.
+- Suporta autoboxing e unboxing desde o Java 5:
+  - Autoboxing: conversão automática de int para Integer, sem necessidade de usar new ou valueOf explicitamente.
+  - Unboxing: conversão automática de Integer para int
+
+
+**Exemplos de uso:**
+````java
+public class Teste {
+
+    public static void main(String[] args) {
+
+        // Criação de um Integer a partir de um valor int (autoboxing)
+        // O compilador converte automaticamente o int 10 em Integer.valueOf(10)
+        Integer num1 = 10;
+
+        // Conversão de uma String para Integer usando valueOf (conversão explícita)
+        Integer num2 = Integer.valueOf("123");
+        System.out.println("num2 (Integer criado a partir de String): " + num2); // Saída: 123
+
+        // Conversão de Integer para int (unboxing)
+        int x = num2; // Ocorre automaticamente: num2.intValue()
+        System.out.println("x (valor int extraído de num2): " + x); // Saída: 123
+
+        // Comparação entre Integer e int (autoboxing do int para Integer antes de comparar)
+        boolean isEqual = num2.equals(x); // x vira Integer(123) internamente
+        System.out.println("num2.equals(x): " + isEqual); // Saída: true
+
+        // Conversão de Integer para String
+        String str = num1.toString(); // str = "10"
+        System.out.println("str (num1 convertido para String): " + str); // Saída: 10
+
+        // Comparação entre Integer e String (tipos diferentes)
+        boolean isEqual2 = num1.equals(str); // false: tipos diferentes (Integer vs String)
+        System.out.println("num1.equals(str): " + isEqual2); // Saída: false
+    }
+}
+
+````
+
+**Alguns métodos úteis da classe Integer:**
+
+| Método                       | Descrição                                            |
+| ---------------------------- | ---------------------------------------------------- |
+| `intValue()`                 | Retorna o valor primitivo `int` do objeto `Integer`  |
+| `parseInt(String s)`         | Converte uma `String` para um `int`                  |
+| `valueOf(String s)`          | Converte uma `String` para um `Integer`              |
+| `compareTo(Integer another)` | Compara dois objetos `Integer`                       |
+| `toString()`                 | Retorna o valor como `String`                        |
+| `MAX_VALUE` / `MIN_VALUE`    | Constantes que representam o maior/menor valor `int` |
+
+**Aplicações práticas:**
+
+- Necessário quando é preciso usar tipos primitivos em coleções genéricas (como ArrayList<Integer>)
+- Quando se deseja aproveitar os métodos utilitários da classe para conversões e comparações.
+- Em operações com APIs que trabalham com objetos ao invés de tipos primitivos.
+
+**Cache no Integer (Autoboxing)**
+
+***O que é o cache do Integer?***
+
+O cache do Integer é uma otimização interna da linguagem Java que reutiliza objetos Integer para valores inteiros entre -128 e 127, com o objetivo de economizar memória e melhorar a performance.
+
+Essa reutilização ocorre quando usamos autoboxing ou o método Integer.valueOf(int).
+
+**Exemplos:**
+
+Dentro do cache com o mesmo valor
+````java
+        // ----------- DENTRO DO CACHE (entre -128 e 127) ----------- //
+        Integer a = 127;  // valor dentro do intervalo de cache do Integer
+        Integer b = 127;
+
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+
+        // Como 127 está no intervalo do cache (-128 a 127),
+        // Java reutiliza o mesmo objeto Integer para 'a' e 'b'
+        System.out.println("a == b? " + (a == b)); // true (mesmo objeto na memória)
+
+        // Mostra os "endereços simulados" dos objetos (serão iguais)
+        System.out.println("a identityHashCode = " + System.identityHashCode(a));
+        System.out.println("b identityHashCode = " + System.identityHashCode(b));
+````
+**Importante:**
+
+- ``==`` compara referência (memória).
+- ``.equals()`` compara valores.
+- Mesmo dentro do cache, se os valores forem diferentes, os objetos também serão diferentes.
+
+Dentro do cache com valor diferente
+````java
+        // ----------- DENTRO DO CACHE (entre -128 e 127) ----------- //
+        Integer a = 127;  // valor dentro do intervalo de cache do Integer
+        Integer b = 126;  // também dentro do cache
+
+        System.out.println("a = " + a); // 127
+        System.out.println("b = " + b); // 126
+
+        /*
+         * ATENÇÃO:
+         * Apesar de ambos os valores estarem dentro do intervalo de cache do Integer (-128 a 127),
+         * os objetos 'a' e 'b' referenciam valores diferentes, então eles são objetos distintos no cache.
+         *
+         * O cache do Integer mantém UM objeto para CADA valor no intervalo.
+         * Portanto, 'a' e 'b' apontam para objetos diferentes dentro do cache.
+         *
+         * Logo: (a == b) → false
+         */
+        System.out.println("a == b? " + (a == b)); // false (objetos diferentes, pois os valores são diferentes)
+
+        // Mostra os "endereços simulados" dos objetos (serão diferentes)
+        System.out.println("a identityHashCode = " + System.identityHashCode(a));
+        System.out.println("b identityHashCode = " + System.identityHashCode(b));
+    }
+````
+
+Fora do cache
+````java
+        // ----------- FORA DO CACHE (> 127 ou < -128) ----------- //
+        Integer a2 = 128;
+        Integer b2 = 128;
+
+        /*
+         * Quando usamos autoboxing (Integer a2 = 128), o compilador chama internamente:
+         *    Integer.valueOf(128)
+         * O método valueOf verifica se o valor está no intervalo do cache [-128, 127].
+         *
+         * Como 128 está FORA do cache, a JVM CRIA UM NOVO OBJETO Integer para cada atribuição.
+         * Assim, 'a2' e 'b2' são objetos distintos, embora contenham o mesmo valor.
+         */
+        System.out.println("a2 = " + a2);
+        System.out.println("b2 = " + b2);
+
+        // '==' compara as referências (endereços de memória). Como são objetos distintos, retorna false.
+        System.out.println("a2 == b2? " + (a2 == b2)); // false
+
+        // .equals() compara os VALORES dos objetos, e não as referências.
+        System.out.println("a2.equals(b2)? " + a2.equals(b2)); // true
+
+        // Mostra os identityHashCodes (endereços simulados na memória)
+        // Como são objetos diferentes, os códigos também são diferentes.
+        System.out.println("a2 identityHashCode = " + System.identityHashCode(a2));
+        System.out.println("b2 identityHashCode = " + System.identityHashCode(b2));
+    }
+````
+***Resumo: Cache de Integer em Java***
+
+| Situação                                    | Valor atribuído                          | Resultado com `==`                    | Motivo                                                                   |
+| ------------------------------------------- | ---------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------ |
+| **Dentro do cache**                         | `Integer a = 127;`<br>`Integer b = 127;` | `true`                                | Java reutiliza o mesmo objeto do cache para valores entre **-128 e 127** |
+| **Fora do cache**                           | `Integer a = 128;`<br>`Integer b = 128;` | `false`                               | Java cria **novos objetos** fora do intervalo de cache                   |
+| **Dentro do cache, mas valores diferentes** | `Integer a = 127;`<br>`Integer b = 126;` | `false`                               | Mesmo no cache, **valores diferentes geram objetos diferentes**          |
+| **Comparação com `.equals()`**              | `a.equals(b)`                            | `true` se valores forem iguais        | `.equals()` compara **valores**, não referências                         |
+| **Comparação com `==`**                     | `a == b`                                 | `true` ou `false` dependendo do cache | `==` compara **referência** (endereços de memória)                       |
+
+**Representação na memória**
+
+````
+┌────────────┐        ┌────────────┐
+│  Integer a │──────▶│ valor: 127 │
+└────────────┘        └────────────┘
+│                  
+│ mesma referência (reutilizado do cache)
+▼
+┌────────────┐
+│  Integer b │
+└────────────┘
+
+=== agora fora do cache ===
+
+┌────────────┐        ┌────────────┐
+│  Integer x │──────▶│ valor: 128 │
+└────────────┘        └────────────┘
+
+┌────────────┐        ┌────────────┐
+│  Integer y │──────▶│ valor: 128 │
+└────────────┘        └────────────┘
+
+=== fora do cache (>127 ou < -128) ===
+
+┌────────────┐        ┌────────────┐
+│  Integer x │──────▶│ valor: 150 │
+└────────────┘        └────────────┘
+
+┌────────────┐        ┌────────────┐
+│  Integer y │──────▶│ valor: 200 │
+└────────────┘        └────────────┘
+````
+
+### Boolean
+
+A classe Boolean faz parte do pacote java.lang e é a classe wrapper (invólucro) para o tipo primitivo boolean.
+Ela permite representar valores true ou false como objetos, além de fornecer métodos utilitários para conversões e comparações.
+
+**Principais características:**
+
+- A classe Boolean representa um valor lógico: true, false ou null.
+- Pode ser usada em coleções (List<Boolean>) e APIs que exigem objetos.
+- Suporta autoboxing e unboxing (desde o Java 5).
+- É imutável — uma vez criado, o valor não pode ser alterado.
+
+**Exemplos de uso:**
+
+````java
+public class Teste {
+
+    public static void main(String[] args) {
+
+        // Exemplo 1: Autoboxing (conversão automática de boolean para Boolean)
+        // O valor primitivo 'true' é convertido automaticamente para o objeto Boolean
+        boolean ativo = true;
+        Boolean wrapperAtivo = ativo; // autoboxing
+        System.out.println("Autoboxing: wrapperAtivo = " + wrapperAtivo); // true
+
+        // Exemplo 2: Unboxing (conversão automática de Boolean para boolean)
+        // O objeto Boolean é convertido automaticamente para o tipo primitivo boolean
+        Boolean online = Boolean.TRUE;
+        boolean status = online; // unboxing
+        System.out.println("Unboxing: status = " + status); // true
+
+        // Exemplo 3: Conversão de String para Boolean
+        // O método valueOf(String) converte a string para Boolean (true apenas se for "true" ignorando maiúsculas/minúsculas)
+        String str1 = "true";
+        String str2 = "false";
+        String str3 = "qualquer coisa"; // qualquer valor diferente de "true" retorna false
+
+        Boolean b1 = Boolean.valueOf(str1); // true
+        Boolean b2 = Boolean.valueOf(str2); // false
+        Boolean b3 = Boolean.valueOf(str3); // false
+
+        // Exibindo os resultados das conversões de String para Boolean
+        System.out.println("String 'true' → Boolean: " + b1);   // true
+        System.out.println("String 'false' → Boolean: " + b2);  // false
+        System.out.println("String inválida → Boolean: " + b3); // false
+
+        // Exemplo 4: Comparação entre objetos Boolean usando equals()
+        // O método equals compara os valores internos dos objetos Boolean
+        Boolean x = Boolean.TRUE;
+        Boolean y = Boolean.valueOf("true"); // também é true
+        System.out.println("x.equals(y): " + x.equals(y)); // true
+    }
+}
+````
+
+
+**Métodos úteis da classe Boolean:**
+
+| Método                         | Descrição                                           |
+| ------------------------------ | --------------------------------------------------- |
+| `booleanValue()`               | Retorna o valor primitivo (`true` ou `false`)       |
+| `parseBoolean(String s)`       | Converte uma string para `boolean` primitivo        |
+| `valueOf(String s)`            | Converte string para `Boolean` (objeto)             |
+| `toString()`                   | Retorna o valor como String (`"true"` ou `"false"`) |
+| `equals(Object obj)`           | Compara dois objetos `Boolean`                      |
+| `Boolean.TRUE / Boolean.FALSE` | Constantes prontas para uso                         |
+
+**Cache da Classe Boolean**
+
+| Situação                         | Código exemplo                        | Usa cache? | Resultado de `==` com `Boolean.TRUE`/`FALSE` | Observação                |
+| -------------------------------- |---------------------------------------| ---------- | -------------------------------------------- | ------------------------- |
+| Autoboxing com `true`            | `Boolean b = true;`                   | ✅ Sim      | `b == Boolean.TRUE → true`                   | Usa cache via `valueOf()` |
+| Autoboxing com `false`           | `Boolean b = false;`                  | ✅ Sim      | `b == Boolean.FALSE → true`                  | Usa cache via `valueOf()` |
+| Usando `Boolean.valueOf(true)`   | `Boolean b = Boolean.valueOf(true);`  | ✅ Sim      | `b == Boolean.TRUE → true`                   | Forma recomendada         |
+| Usando `Boolean.valueOf(false)`  | `Boolean b = Boolean.valueOf(false);` | ✅ Sim      | `b == Boolean.FALSE → true`                  | Forma recomendada         |
+| Usando `Boolean.TRUE` ou `FALSE` | `Boolean b = Boolean.TRUE;`           | ✅ Sim      | `b == Boolean.TRUE → true`                   | Objeto singleton          |
+| Criando com `new Boolean(true)`  | `Boolean b = new Boolean(true);(deprecated)`   | ❌ Não      | `b == Boolean.TRUE → false`                  | Cria novo objeto (evitar) |
+| Criando com `new Boolean(false)` | `Boolean b = new Boolean(false);(deprecated)`  | ❌ Não      | `b == Boolean.FALSE → false`                 | Cria novo objeto (evitar) |
+| Comparação por `.equals()`       | `b.equals(Boolean.TRUE)`              | ✅ Sim      | `true` (mesmo valor)                         | Funciona mesmo sem cache  |
+
+
