@@ -1083,4 +1083,115 @@ public class Teste {
 | Criando com `new Boolean(false)` | `Boolean b = new Boolean(false);(deprecated)`  | ❌ Não      | `b == Boolean.FALSE → false`                 | Cria novo objeto (evitar) |
 | Comparação por `.equals()`       | `b.equals(Boolean.TRUE)`              | ✅ Sim      | `true` (mesmo valor)                         | Funciona mesmo sem cache  |
 
+### Double
+
+Double é uma das classes wrapper que encapsula o tipo primitivo double como um objeto. Faz parte do pacote java.lang e herda de Number.
+
+**Funções principais da classe Double:**
+
+- Conversão entre String e double.
+- Comparação de valores com métodos como compareTo() e equals().
+- Constantes como Double.MAX_VALUE e Double.MIN_VALUE.
+- Conversão automática (autoboxing/unboxing) entre double e Double.
+
+**Autoboxing e Unboxing**
+
+- Autoboxing: conversão automática de double → Double.
+- Unboxing: conversão automática de Double → double.
+
+````java
+Double d = 20.0; // autoboxing
+double p = d;    // unboxing
+````
+
+**Existe cache para Double?**
+
+- Não. 
+- A classe Double não utiliza cache para valores pequenos, como acontece com Integer, Byte, Short e Character.
+
+Comparação com Integer:
+````java
+Integer i1 = 100;
+Integer i2 = 100;
+System.out.println(i1 == i2); // true (cache entre -128 e 127)
+
+Double d1 = 100.0;
+Double d2 = 100.0;
+System.out.println(d1 == d2); // false (sem cache)
+````
+A razão é que o wrapper Double sempre cria um novo objeto com valueOf() (a menos que a JVM decida otimizar em tempo de execução).
+
+
+
+**Resumo**
+
+- Double não tem cache de objetos.
+- Cada chamada a Double.valueOf() cria um novo objeto.
+- Comparações com == em Double geralmente dão false, mesmo para valores iguais.
+- Use .equals() para comparar valores de Double.
+
+#### Infinity em Java
+
+Infinity (infinito) é um valor especial representado pelo tipo double (e float) em Java quando ocorre uma divisão de número não zero por zero.
+
+````java
+double x = 10.0 / 0.0;
+System.out.println(x); // Imprime: Infinity
+````
+- Não lança exceção (diferente de int, que lança ArithmeticException).
+- Existe também -Infinity, que resulta de divisão negativa:
+
+````java
+double x = -10.0 / 0.0; // -Infinity
+````
+Verificação:
+
+````java
+Double valor = 1.0 / 0.0;
+System.out.println(valor.isInfinite()); // true
+````
+#### NaN (Not a Number) em Java
+
+NaN é um valor especial do tipo double (ou float) que representa um resultado indefinido ou não numérico, como uma operação matemática inválida.
+
+````java
+double y = 0.0 / 0.0;
+System.out.println(y); // Imprime: NaN
+````
+
+Ocorrências comuns:
+
+- 0.0 / 0.0
+- Math.sqrt(-1) (raiz de número negativo)
+- Math.log(-5)
+
+Verificação:
+
+````java
+Double valor = 0.0 / 0.0;
+System.out.println(valor.isNaN()); // true
+````
+
+**Comparativo: Infinity vs NaN**
+
+| Característica             | `Infinity`                      | `NaN`                        |
+| -------------------------- | ------------------------------- | ---------------------------- |
+| Representa                 | Infinito matemático             | Valor indefinido ou inválido |
+| Exemplo                    | `10.0 / 0.0`                    | `0.0 / 0.0`                  |
+| Exceção?                   | Não                             | Não                          |
+| Pode ser positivo/negativo | Sim (`Infinity` / `-Infinity`)  | Não (só existe `NaN`)        |
+| Teste com método           | `isInfinite()`                  | `isNaN()`                    |
+| Comparação com `==`        | `Infinity == Infinity` → `true` | `NaN == NaN` → `false` (!!)  |
+
+***Curiosidade importante sobre NaN***
+
+````java
+System.out.println(Double.NaN == Double.NaN); // false (!)
+System.out.println(Double.isNaN(Double.NaN)); // true
+````
+>NaN nunca é igual a si mesmo. Sempre use .isNaN() para testá-lo!
+
+
+
+
 
