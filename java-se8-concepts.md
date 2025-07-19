@@ -128,6 +128,59 @@ public void exemplo() {
             System.out.println("Dentro do if: " + numero);
         }
 ```
+
+### Sombreamento de Variáveis (Shadowing)
+
+O sombreamento ocorre quando uma variável local (ou parâmetro de método) tem o mesmo nome de uma variável de instância ou de uma variável declarada em um escopo mais externo. Quando isso acontece, a variável mais interna "sombreia" a externa — ou seja, esconde seu acesso direto dentro do bloco atual.
+
+**Quando é permitido:**
+
+- Quando uma variável local ou um parâmetro tem o mesmo nome de um campo da classe.
+- Nestes casos, usamos this para acessar o campo da classe.
+
+````java
+public class Pessoa {
+    String nome;
+
+    public void setNome(String nome) {
+        this.nome = nome; // parâmetro 'nome' sombreia o campo 'nome'
+    }
+}
+````
+**Neste exemplo não ocorre sombreamento**
+
+````java
+public class Pessoa {
+    String nome;
+
+    public void setNome(String sobreNome) { 
+        this.nome = sobreNome; // parâmetro 'sobreNome' é diferente do campo 'nome'
+                               // nome diferentes não há sombreamento     
+    }
+}
+````
+**Por quê?**
+
+Porque o nome do parâmetro (sobreNome) é diferente do nome da variável de instância (nome).
+
+Logo, não existe sombra. O parâmetro sobreNome não esconde o campo nome, então o uso de this.nome = sobreNome; apenas:
+- Acessa o campo nome da instância com this.nome
+- Atribui a ele o valor do parâmetro sobreNome
+
+
+**Quando não é permitido:**
+
+- Quando duas variáveis com o mesmo nome são declaradas no mesmo escopo ou em blocos aninhados do mesmo método.
+````java
+public void exemplo() {
+    int x = 10;
+    int x = 5; // ❌ Erro: 'x' já foi declarado
+}
+````
+***Dica:***
+
+O sombreamento é comum em construtores e métodos set, onde o nome do parâmetro costuma ser igual ao nome do campo da classe.
+
 ---
 ## Estrutura básica de uma classe
 
