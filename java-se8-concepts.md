@@ -355,6 +355,86 @@ Se ocorrer algum problema lógico durante a execução (como divisão por zero, 
 | 8     | Durante a execução, se ocorrer problema lógico (ex: divisão por zero), a JVM lança uma Exception. |
 | 9     | Se não houver erros, o programa roda normalmente e exibe o resultado esperado.                    |
 
+**Para fixar:**
+
+>Para compilar um programa Java, usa-se o comando ``javac NomeDoArquivo.java``. 
+> Se a classe for public, o nome do arquivo deve ser igual ao nome da classe. Caso contrário, pode ter qualquer nome.
+
+>A execução é feita com ``java NomeDaClasse`` (sem .java ou .class). 
+> O programa só será executado se a classe compilada tiver o método main com a assinatura correta: public static void main(String[] args).
+
+>Se a classe estiver em um pacote, a execução deve usar o nome totalmente qualificado, como: ``java pacote.Classe``.
+
+
+**O que é nome qualificado?**
+
+- O nome qualificado (ou nome totalmente qualificado) é usado quando sua classe está dentro de um pacote, ou seja, quando há uma estrutura de pacotes no projeto.
+- Ele é formado pelo nome do pacote + nome da classe.
+
+**Por que usar nome qualificado?**
+
+- Para indicar de forma única e completa onde a classe está localizada dentro da hierarquia de pacotes do projeto.
+- Ajuda a JVM a localizar e executar a classe correta.
+
+Exemplo:
+
+Suponha que você tenha a seguinte estrutura:
+
+````
+src/
+ └─ app/
+     └─ Principal.java (contém package app;)
+````
+
+Para compilar:
+````
+javac -d . src/app/Principal.java
+````
+Para executar:
+````
+java app.Principal
+````
+Aqui, app.Principal é o nome qualificado.
+
+***Importante***
+
+**Compilação e Execução Java — Terminal vs IDE**
+
+Pelo Terminal
+- Compilação:
+  - É necessário compilar todos os arquivos .java que seu programa usa, incluindo as classes importadas ou instanciadas.
+  - Pode-se compilar tudo junto:
+  ````bash
+  javac -d . src/util/Mensagem.java src/app/Main.java
+  ````
+  - Ou compilar em etapas, garantindo que as dependências estejam compiladas antes:
+  ````bash
+  javac -d . src/util/Mensagem.java
+  javac -d . -cp . src/app/Main.java
+  ````
+  - O parâmetro -d . indica onde criar a estrutura de pacotes (neste caso, na pasta atual).
+  - O parâmetro -cp . informa ao compilador para procurar as classes já compiladas no diretório atual (.), facilitando a resolução das dependências.
+
+- Execução:
+  - Executa-se apenas a classe com o método main, usando o nome qualificado (com pacote, se houver):
+  ````bash
+  java app.Main
+  ````
+  - Não é preciso listar as dependências no comando de execução.
+
+Pela IDE (IntelliJ, Eclipse, NetBeans, etc.)
+
+- A IDE automatiza o processo de compilação e execução:
+  - Ao clicar em Run, ela compila todas as classes necessárias, mesmo as dependências.
+  - Organiza a estrutura de pacotes automaticamente.
+  - Executa a classe com main sem que o usuário precise se preocupar com parâmetros extras.
+- O processo fica mais simples e rápido para o desenvolvedor, especialmente em projetos grandes.
+
+Observação
+- O import no código não compila as dependências automaticamente; ele apenas informa ao compilador onde encontrar as classes.
+- No terminal, o programador deve garantir que todas as classes estejam compiladas para que o programa funcione.
+- Na IDE, esse gerenciamento é feito internamente.
+
 ---
 ## Importe outros pacotes Java para torná-los acessíveis em seu código
 
