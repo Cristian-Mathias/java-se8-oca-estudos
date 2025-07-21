@@ -435,6 +435,22 @@ Observação
 - No terminal, o programador deve garantir que todas as classes estejam compiladas para que o programa funcione.
 - Na IDE, esse gerenciamento é feito internamente.
 
+**1- javac (Compilação)**
+
+- O compilador javac usa o ``CLASSPATH`` para encontrar arquivos .class já existentes que são referenciados no seu código-fonte.
+- Isso é necessário se você estiver compilando um arquivo .java que usa outras classes (que já foram compiladas).
+
+**2- java (Execução)**
+- A JVM usa o ``CLASSPATH`` para localizar o arquivo .class da classe principal (com o main) e também quaisquer outras classes necessárias em tempo de execução.
+
+✅ Resumindo:
+
+| Fase       | Ferramenta | O que faz com o `CLASSPATH`                                    |
+| ---------- | ---------- | -------------------------------------------------------------- |
+| Compilação | `javac`    | Localiza `.class` usados no seu código `.java`                 |
+| Execução   | `java`     | Localiza `.class` para rodar seu programa (incluindo o `main`) |
+
+
 ---
 ## Importe outros pacotes Java para torná-los acessíveis em seu código
 
