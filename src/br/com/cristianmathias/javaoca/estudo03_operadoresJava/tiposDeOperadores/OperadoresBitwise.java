@@ -1,4 +1,4 @@
-package br.com.cristianmathias.javaoca.estudo03_operadoresJava;
+package br.com.cristianmathias.javaoca.estudo03_operadoresJava.tiposDeOperadores;
 /**
  * Operadores em Java =>
  *
