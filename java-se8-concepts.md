@@ -1340,7 +1340,244 @@ System.out.println(Double.isNaN(Double.NaN)); // true
 ````
 >NaN nunca é igual a si mesmo. Sempre use .isNaN() para testá-lo!
 
+---
+
+# 3  Usando Operadores e Construções de Decisão
+
+## O que são Operadores?
+
+Operadores são símbolos especiais usados para manipular valores ou variáveis. Eles permitem realizar operações matemáticas, comparações, lógicas, atribuições e até manipulação de bits.
+
+### Classificação dos Operadores em Java
+
+**1. Operadores Aritméticos**
+
+- Usados para operações matemáticas.
+
+| Operador | Descrição      | Exemplo  | Resultado |
+| -------- | -------------- | -------- | --------- |
+| `+`      | Adição         | `10 + 5` | `15`      |
+| `-`      | Subtração      | `10 - 5` | `5`       |
+| `*`      | Multiplicação  | `10 * 5` | `50`      |
+| `/`      | Divisão        | `10 / 5` | `2`       |
+| `%`      | Módulo (resto) | `10 % 3` | `1`       |
+
+````java
+int x = 10, y = 3;
+System.out.println(x + y); // 13
+System.out.println(x % y); // 1
+
+````
+
+**2. Operadores de Atribuição**
+
+- Usados para atribuir valores a variáveis.
+
+| Operador | Descrição         | Exemplo  | Resultado   |
+| -------- | ----------------- | -------- | ----------- |
+| `=`      | Atribuição        | `a = 10` | `10`        |
+| `+=`     | Soma e atribui    | `a += 5` | `a = a + 5` |
+| `-=`     | Subtrai e atribui | `a -= 5` | `a = a - 5` |
+
+````java
+int a = 5;
+a += 3; // agora a = 8
+
+````
+**3. Operadores Relacionais**
+
+- Comparam valores e retornam boolean.
+
+| Operador | Descrição      | Exemplo   | Resultado |
+| -------- | -------------- | --------- | --------- |
+| `==`     | Igual          | `10 == 5` | `false`   |
+| `!=`     | Diferente      | `10 != 5` | `true`    |
+| `>`      | Maior          | `10 > 5`  | `true`    |
+| `<`      | Menor          | `10 < 5`  | `false`   |
+| `>=`     | Maior ou igual | `10 >= 5` | `true`    |
+| `<=`     | Menor ou igual | `10 <= 5` | `false`   |
+
+````java
+public class OperadoresRelacionais {
+    public static void main(String[] args) {
+        int a = 10, b = 5;
+
+        System.out.println("a == b ? " + (a == b)); // false
+        System.out.println("a != b ? " + (a != b)); // true
+        System.out.println("a > b  ? " + (a > b));  // true
+        System.out.println("a < b  ? " + (a < b));  // false
+        System.out.println("a >= b ? " + (a >= b)); // true
+        System.out.println("a <= b ? " + (a <= b)); // false
+    }
+}
+
+````
+
+**4. Operadores Lógicos**
+
+- Usados com valores booleanos.
+
+| Operador | Descrição | Exemplo             | Resultado |
+| -------- | --------- | ------------------- | --------- |
+| `&&`     | E lógico  | `(true && false)`   | `false`   |
+| `\|\|`   | OU lógico | `(true \|\| false)` | `true`    |
+| `!`      | Negação   | `!(true)`           | `false`   |
+
+- && → AND lógico (verdadeiro se ambas as condições forem verdadeiras)
+- || → OR lógico (verdadeiro se pelo menos uma condição for verdadeira)
+- ! → NOT lógico (inverte o valor lógico)
+
+
+````java
+public class OperadoresLogicos {
+    public static void main(String[] args) {
+        boolean x = true, y = false;
+
+        System.out.println("x && y = " + (x && y)); // false
+        System.out.println("x || y = " + (x || y)); // true
+        System.out.println("!x = " + (!x));         // false
+    }
+}
+
+````
+
+**5. Operadores Unários**
+
+- Operam em um único operando.
+
+| Operador | Descrição      | Exemplo        |
+| -------- | -------------- | -------------- |
+| `+`      | Valor positivo | `+a`           |
+| `-`      | Valor negativo | `-a`           |
+| `++`     | Incremento     | `a++` ou `++a` |
+| `--`     | Decremento     | `a--` ou `--a` |
+
+````java
+public class OperadoresUnarios {
+    public static void main(String[] args) {
+        int num = 5;
+
+        System.out.println("Valor original: " + num);  // 5
+        System.out.println("Pré-incremento: " + (++num)); // 6
+        System.out.println("Pós-incremento: " + (num++)); // 6 (depois num = 7)
+        System.out.println("Pós-decremento: " + (num--)); // 7 (depois num = 6)
+        System.out.println("Negação lógica (!true): " + (!true)); // false
+    }
+}
+````
+**O que é pré-incremento e pós-incremento em Java?**
+
+**Pré-incremento (++variável)**
+- O incremento acontece antes da variável ser usada na expressão.
+- A variável é aumentada em 1 e depois o valor atualizado é retornado.
+````java
+int x = 5;
+int y = ++x; // primeiro incrementa x (x=6), depois atribui a y
+System.out.println("x = " + x); // 6
+System.out.println("y = " + y); // 6
+````
+
+**Pós-incremento (variável++)**
+- O incremento acontece depois que a variável é usada na expressão.
+- Primeiro retorna o valor atual da variável, depois incrementa.
+
+````java
+int x = 5;
+int y = x++; // primeiro atribui x a y (y=5), depois incrementa x (x=6)
+System.out.println("x = " + x); // 6
+System.out.println("y = " + y); // 5
+````
+
+**6. Operador Ternário**
+
+- Expressão condicional em uma linha:
+
+| Símbolo | Nome         | Descrição                                                                |
+| ------- | ------------ | ------------------------------------------------------------------------ |
+| `?`     | Interrogação | Se a condição for **verdadeira**, retorna o valor antes dos dois pontos. |
+| `:`     | Dois pontos  | Se a condição for **falsa**, retorna o valor depois dos dois pontos.     |
 
 
 
+````java
+condição ? valorSeVerdadeiro : valorSeFalso;
+````
 
+````java
+int idade = 18;
+String status = (idade >= 18) ? "Adulto" : "Menor";
+````
+
+**7. Operadores Bitwise**
+
+- Operam diretamente nos bits de números inteiros (int, long, byte, etc.). Diferem dos lógicos porque trabalham com bits e não com valores booleanos.
+  
+| Operador | Descrição          | Exemplo Binário                    |     |          |                   |
+| -------- | ------------------ | ---------------------------------- | --- | -------- | ----------------- |
+| `&`      | AND bit a bit      | `5 & 3` → `0101 & 0011 = 0001 (1)` |     |          |                   |
+| \`       | \`                 | OR bit a bit                       | \`5 | 3`→`0101 | 0011 = 0111 (7)\` |
+| `^`      | XOR (OU exclusivo) | `5 ^ 3` → `0101 ^ 0011 = 0110 (6)` |     |          |                   |
+| `~`      | NOT (inverte bits) | `~5` → `...1010`                   |     |          |                   |
+| `<<`     | Shift à esquerda   | `5 << 1` → `1010 (10)`             |     |          |                   |
+| `>>`     | Shift à direita    | `5 >> 1` → `0010 (2)`              |     |          |                   |
+
+````java
+public class OperadoresBitwise {
+    public static void main(String[] args) {
+        int a = 5;  // 0101
+        int b = 3;  // 0011
+
+        System.out.println("a & b = " + (a & b)); // 1
+        System.out.println("a | b = " + (a | b)); // 7
+        System.out.println("a ^ b = " + (a ^ b)); // 6
+        System.out.println("~a = " + (~a));       // -6 (inverte bits)
+        System.out.println("a << 1 = " + (a << 1)); // 10
+        System.out.println("a >> 1 = " + (a >> 1)); // 2
+    }
+}
+
+````
+**Regras do operador & (bit a bit)**
+
+| Bit A | Bit B | A & B |
+| ----- | ----- | ----- |
+| 0     | 0     | 0     |
+| 0     | 1     | 0     |
+| 1     | 0     | 0     |
+| 1     | 1     | 1     |
+
+
+**Resumo rápido do conceito de Bitwise**
+
+- Diferente de && e ||, que trabalham com boolean, operadores bitwise (&, |, ^, ~) atuam em cada bit do número inteiro.
+
+- Muito usado em programação de baixo nível, máscaras de bits e otimizações.
+
+Exemplo:
+- a = 5 (0101)
+- b = 3 (0011)
+- a & b = 0001 (1)
+
+
+---
+### Precedência dos Operadores
+
+A ordem em que os operadores são avaliados:
+
+| Precedência | Operadores                      | Descrição                        |
+|------------:|--------------------------------|---------------------------------|
+| 1           | ()                             | Parênteses                      |
+| 2           | ++, --                         | Pós-incremento/decremento      |
+| 3           | ++, --, +, -, ~, !            | Pré-incremento/decremento, unários |
+| 4           | *, /, %                       | Multiplicação, divisão, módulo |
+| 5           | +, -                           | Adição, subtração               |
+| 6           | <<, >>, >>>                   | Deslocamento de bits           |
+| 7           | <, <=, >, >=, instanceof      | Comparação                     |
+| 8           | ==, !=                         | Igualdade                       |
+| 9           | &                              | AND bit a bit                  |
+| 10          | ^                              | XOR bit a bit                  |
+| 11          | \|                             | OR bit a bit                   |
+| 12          | &&                             | AND lógico                      |
+| 13          | \|\|                           | OR lógico                       |
+| 14          | ?:                             | Operador ternário              |
+| 15          | =, +=, -=, *=, /=, %=, etc.   | Atribuição                     |
