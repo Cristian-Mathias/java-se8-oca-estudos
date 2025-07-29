@@ -1558,6 +1558,115 @@ Exemplo:
 - b = 3 (0011)
 - a & b = 0001 (1)
 
+**Passo a passo para converter 3 para binário:**
+- Pegamos 3 e dividimos por 2 até o quociente ser 0, anotando o resto:
+
+| Divisão | Quociente | Resto (bit) |
+| ------- | --------- | ----------- |
+| 3 ÷ 2   | 1         | 1           |
+| 1 ÷ 2   | 0         | 1           |
+
+Agora pegue os restos de baixo para cima:
+
+````
+1 (de 1 ÷ 2) → 1
+1 (de 3 ÷ 2) → 1
+````
+Resultado: 11 (binário puro).
+
+Se quisermos representar com 4 bits, completamos com zeros à esquerda:
+````
+11 → 0011
+````
+
+**Regra para converter decimal para binário:**
+1. Pegue o número decimal.
+2. Divida por 2 repetidamente, anotando o resto (0 ou 1) em cada passo.
+3. Continue até o quociente ser 0.
+4. Leia os restos de baixo para cima (do último para o primeiro).
+5. Esse é o número em binário.
+6. Se quiser padronizar para 4, 8, 16 bits, complete com zeros à esquerda.
+
+````
+14 ÷ 2 = 7 resto 0
+7 ÷ 2  = 3 resto 1
+3 ÷ 2  = 1 resto 1
+1 ÷ 2  = 0 resto 1
+````
+De baixo para cima: 1110.
+
+**Como os bits são indexados?**
+
+- Em um número binário, a contagem começa da direita para a esquerda, pois o bit mais à direita representa a menor potência de 2.
+- Exemplo com 0101 (que é 5):
+
+````
+Índice:  3   2   1   0   (posição do bit)
+Valor:   0   1   0   1
+````
+- Bit 0 (mais à direita) → vale 2⁰ = 1
+- Bit 1 → vale 2¹ = 2
+- Bit 2 → vale 2² = 4
+- Bit 3 → vale 2³ = 8
+
+**Agora, aplicando ao exemplo:**
+````java
+int a = 5;   // em binário: 0101
+int b = 3;   // em binário: 0011
+int resultado = a & b;
+````
+Fazendo a & b (AND bit a bit):
+````
+Índice:   3   2   1   0
+a:        0   1   0   1
+b:        0   0   1   1
+AND:      0   0   0   1
+````
+- Resultado binário: 0001
+- Decimal: 1
+
+Então:
+- Para saber qual bit é 1, basta olhar a posição com resultado 1.
+- No caso, somente o bit 0 ficou 1 (última posição à direita).
+
+**Regras do operador | (bit a bit)**
+
+| Bit A | Bit B | A \| B |
+| ----- | ----- | ------ |
+| 0     | 0     | 0      |
+| 0     | 1     | 1      |
+| 1     | 0     | 1      |
+| 1     | 1     | 1      |
+
+Resumo:
+
+- Se qualquer um for 1, o resultado é 1.
+- Só dá 0 quando os dois forem 0.
+````java
+int a = 5;   // em binário: 0101
+int b = 3;   // em binário: 0011
+int resultado = a | b;  // OR bit a bit
+````
+
+Explicação:
+- O operador OR bit a bit (|) compara cada bit correspondente de a e b e retorna 1 se pelo menos um dos bits for 1, caso contrário retorna 0.
+- Vamos analisar bit a bit (considerando índices da direita para esquerda, do bit 0 ao 3):
+
+| Índice | Bit de a | Bit de b | a (OR) b  |
+|--------|----------|----------|-----------|
+| 3 | 0 | 0 | 0         |
+| 2 | 1 | 0 | 1         |
+| 1 | 0 | 1 | 1         |
+| 0 | 1 | 1 | 1         |
+
+Resultado binário:
+````
+0111
+````
+Convertendo para decimal:
+````
+(0 × 8) + (1 × 4) + (1 × 2) + (1 × 1) = 0 + 4 + 2 + 1 = 7
+````
 
 ---
 ### Precedência dos Operadores
