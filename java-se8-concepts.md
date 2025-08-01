@@ -1690,3 +1690,49 @@ A ordem em que os operadores são avaliados:
 | 13          | \|\|                           | OR lógico                       |
 | 14          | ?:                             | Operador ternário              |
 | 15          | =, +=, -=, *=, /=, %=, etc.   | Atribuição                     |
+
+## Teste a igualdade entre Strings e outros objetos usando == e equals()
+
+Em Java, a igualdade entre objetos pode ser verificada de duas formas: com o operador ``==`` ou com o método ``equals()``. Embora ambos sejam usados para comparar, eles possuem comportamentos diferentes.
+
+**Operador ==**
+- Compara referências, ou seja, verifica se duas variáveis apontam para o mesmo objeto na memória.
+- Não analisa o conteúdo do objeto.
+- Para tipos primitivos, == compara valores. Para objetos, compara endereços de memória.
+
+Exemplo:
+````java
+String s1 = "java";
+String s2 = "java";
+String s3 = new String("java");
+
+System.out.println(s1 == s2); // true (mesma referência no pool de strings)
+System.out.println(s1 == s3); // false (objetos diferentes)
+````
+**Método equals()**
+- Definido na classe Object e sobrescrito por várias classes, incluindo String.
+- Compara o conteúdo lógico do objeto, e não a referência.
+- No caso da classe String, ``equals()`` compara os caracteres que compõem a string.
+
+Exemplo:
+````java
+String s1 = "java";
+String s2 = new String("java");
+
+System.out.println(s1.equals(s2)); // true (conteúdo igual)
+````
+
+**String Pool**
+- Strings literais são armazenadas em um pool de strings.
+- Quando duas variáveis apontam para a mesma literal, compartilham a mesma referência no pool, fazendo == retornar true.
+- Ao usar new String("texto"), é criado um novo objeto fora do pool, então == retorna false.
+
+**Com outros objetos**
+- Por padrão, se a classe não sobrescrever equals(), o comportamento é igual ao == (compara referências).
+- Para comparar conteúdo, é necessário sobrescrever equals().
+
+**Resumo**
+- Use == para verificar se duas variáveis apontam para o mesmo objeto.
+- Use equals() para verificar se dois objetos têm o mesmo conteúdo lógico.
+- Em Strings, equals() compara caracteres, enquanto == verifica se estão na mesma posição na memória.
+
